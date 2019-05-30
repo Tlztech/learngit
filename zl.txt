@@ -1,0 +1,8 @@
+2019-05-28 18:24:18 Error: [Cake\Error\FatalErrorException] Maximum execution time of 30 seconds exceeded in /vagrant/admin/vendor/cakephp/cakephp/src/Utility/Text.php on line 207
+Request URL: /entries/edit/406?m=c
+Referer URL: http://192.168.33.11/admin/entries/edit/406
+Client IP: 192.168.33.1
+Stack Trace:
+#0 /vagrant/admin/vendor/cakephp/cakephp/src/Error/BaseErrorHandler.php(105): Cake\Error\BaseErrorHandler->handleFatalError(1, 'Maximum executi...', '/vagrant/admin/...', 207)
+#1 [internal function]: Cake\Error\BaseErrorHandler->Cake\Error\{closure}()
+#2 {main}
