@@ -14,7 +14,7 @@ where
     and tbl_order.order_time >= tbl_activity.start_time  -- 注文日時 <= 活动表的开始时间
     and tbl_order.order_time <= tbl_activity.end_time -- 注文日時 >= 活动表的结束时间
     and tbl_topic.topic_id = 'd940a74a-9a6a-4151-9f1d-4177114fbb08' --１円祭り
-    and tbl_activity.campaign_type = '20' --キャンペーン为大牌商品
+    and tbl_activity.campaign_type = '30' --キャンペーン为大牌商品
     and tbl_order.order_id not in ('', ''); 
     
 
@@ -45,6 +45,6 @@ where
             and t2.order_time >=tbl_activity.start_time -- 注文日時 >= 活动表的开始时间
             and t2.order_time <= tbl_activity.end_time -- 注文日時 <= 活动表的结束时间
             and tbl_topic.topic_id = 'd940a74a-9a6a-4151-9f1d-4177114fbb08' --１円祭り
-            and tbl_activity.campaign_type = '20' --キャンペーン为大牌商品
+            and tbl_activity.campaign_type = '30' --キャンペーン为大牌商品
             and t2.order_id not in ('', '')
     )
