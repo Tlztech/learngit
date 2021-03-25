@@ -1,0 +1,50 @@
+select
+    tbl_order.order_id                         --查询订单表id
+from
+    tbl_order 
+    inner join tbl_order_topic                  
+        on tbl_order_topic.order_id = tbl_order.order_id --关联订单编号
+    inner join tbl_activity                     --关联关系表
+        on tbl_order_topic.activity_id = tbl_activity.tbl_activity_id --商品id
+    inner join tbl_topic                        --关联活动表
+        on tbl_topic.topic_id = tbl_activity.topic_id --专题id
+where
+    tbl_order.order_cash_amount = tbl_topic.activity_price--注文時の現金支払金額 = 专题表中活动价格
+    and tbl_order.order_status in ('10',  '15' )           --注文ステータス = 入金待ち：発送準備 payment_waiting(15),
+    and tbl_order.order_time >= tbl_activity.start_time  -- 注文日時 <= 活动表的开始时间
+    and tbl_order.order_time <= tbl_activity.end_time -- 注文日時 >= 活动表的结束时间
+    and tbl_topic.topic_id = 'd940a74a-9a6a-4151-9f1d-4177114fbb08' --１円祭り
+    and tbl_activity.campaign_type = '20' --キャンペーン为大牌商品
+    and tbl_order.order_id not in ('', ''); 
+    
+
+
+
+update tbl_order t
+set
+    order_status = '35'                 -- 注文ステータス = 取消承認待ち cancel_approval_waiting(35),
+    cancel_method = '10',
+    cancel_info = '一円抽選が当たってない',
+    version = version + 1
+where
+    t.order_id in ( 
+        --查询出没中奖订单，状态全部更改
+        select
+            t2.order_id                  --查询订单表id
+        from
+            tbl_order  t2
+            inner join tbl_order_topic          --
+                on tbl_order_topic.order_id = t2.order_id --关联订单编号
+            inner join tbl_activity            --关联关系表
+                on tbl_order_topic.activity_id = tbl_activity.tbl_activity_id --商品id
+            inner join tbl_topic                --关联活动表
+                on tbl_topic.topic_id = tbl_activity.topic_id --专题id
+        where
+            t2.order_cash_amount = tbl_topic.activity_price --注文時の現金支払金額 = 专题表中活动价格
+            and t2.order_status in ('10',  '15' )    --注文ステータス = 入金待ち：発送準備 payment_waiting(15),
+            and t2.order_time >=tbl_activity.start_time -- 注文日時 >= 活动表的开始时间
+            and t2.order_time <= tbl_activity.end_time -- 注文日時 <= 活动表的结束时间
+            and tbl_topic.topic_id = 'd940a74a-9a6a-4151-9f1d-4177114fbb08' --１円祭り
+            and tbl_activity.campaign_type = '20' --キャンペーン为大牌商品
+            and t2.order_id not in ('', '')
+    )
