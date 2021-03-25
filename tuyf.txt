@@ -17,7 +17,10 @@ where
     and tbl_activity.campaign_type = '30' --キャンペーン为大牌商品
     and tbl_order.order_id not in ('', ''); 
     
-
+	if (a==1 && c==2) {
+		b=3;
+	}
+	
 
 
 update tbl_order t
