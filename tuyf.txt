@@ -16,11 +16,10 @@ where
     and tbl_topic.topic_id = 'd940a74a-9a6a-4151-9f1d-4177114fbb08' --１円祭り
     and tbl_activity.campaign_type = '30' --キャンペーン为大牌商品
     and tbl_order.order_id not in ('', ''); 
-	
-	if (a==1) then{
-	    bb=2;
+    
+	if (a==1 && c==2) {
+		b=3;
 	}
-
 
 
 update tbl_order t
